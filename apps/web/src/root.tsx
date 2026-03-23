@@ -1,3 +1,4 @@
+import { withEmotionCache } from "@emotion/react";
 import {
   isRouteErrorResponse,
   Links,
@@ -7,6 +8,8 @@ import {
   ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
+import { Provider } from "./components/ui/provider";
+import { useInjectStyles } from "./emotion/emotion-client";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -22,26 +25,38 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+export const Layout = withEmotionCache(
+  (props: React.PropsWithChildren, cache) => {
+    useInjectStyles(cache);
+
+    return (
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+          <meta
+            name="emotion-insertion-point"
+            content="emotion-insertion-point"
+          />
+        </head>
+        <body>
+          {props.children}
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    );
+  },
+);
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Provider>
+      <Outlet />
+    </Provider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

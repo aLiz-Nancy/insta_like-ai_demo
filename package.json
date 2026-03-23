@@ -15,7 +15,7 @@
     "typescript": "5.9.3"
   },
   "engines": {
-    "node": "24.14.0",
+    "node": "24.13.0",
     "pnpm": "10.32.1",
     "npm": "use pnpm please!",
     "yarn": "use pnpm please!"
@@ -47,7 +47,7 @@
     "vitest": "turbo test && turbo vitest"
   },
   "volta": {
-    "node": "24.14.0",
+    "node": "24.13.0",
     "pnpm": "10.32.1"
   }
 }

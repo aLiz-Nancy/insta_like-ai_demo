@@ -43,7 +43,7 @@ volta-setup:
 volta-install: volta-install-node volta-install-corepack
 
 volta-install-node:
-	volta install node@24.14.0
+	volta install node@24.13.0
 
 volta-install-corepack:
 	volta install corepack
