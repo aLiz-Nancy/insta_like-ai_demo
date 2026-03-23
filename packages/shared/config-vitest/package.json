@@ -1,0 +1,19 @@
+{
+  "name": "@repo/shared-config-vitest",
+  "version": "0.0.0",
+  "dependencies": {
+    "@vitest/coverage-v8": "4.1.0",
+    "happy-dom": "20.8.4",
+    "vitest": "4.1.0"
+  },
+  "devDependencies": {
+    "@repo/shared-config-typescript": "workspace:*",
+    "typescript": "5.9.3"
+  },
+  "exports": {
+    "./*": "./src/config/*.ts"
+  },
+  "private": true,
+  "scripts": {},
+  "type": "module"
+}
