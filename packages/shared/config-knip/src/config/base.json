@@ -22,7 +22,7 @@
         "@supabase/supabase-js",
         "zod"
       ],
-      "ignoreUnresolved": []
+      "ignoreUnresolved": ["\\./\\+types/"]
     },
     "apps/storybook": {
       "entry": [".storybook/**/*.{ts,tsx}"]

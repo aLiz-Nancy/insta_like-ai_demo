@@ -28,9 +28,9 @@ begin
 
   -- Sanitise: enforce format constraints, fallback to user_<id-prefix>
   if v_username is null
-     or char_length(v_username) < 3
-     or char_length(v_username) > 30
-     or v_username !~ '^[a-z0-9_]+$'
+    or char_length(v_username) < 3
+    or char_length(v_username) > 30
+    or v_username !~ '^[a-z0-9_]+$'
   then
     v_username := 'user_' || substr(new.id::text, 1, 8);
   end if;

@@ -48,7 +48,7 @@ begin
   from public.posts p
   join public.users u on u.id = p.user_id
   where p.user_id = v_user_id
-     or p.user_id in (select f.following_id from public.follows f where f.follower_id = v_user_id)
+    or p.user_id in (select f.following_id from public.follows f where f.follower_id = v_user_id)
   order by p.created_at desc
   limit least(p_limit, 100)
   offset p_offset;
