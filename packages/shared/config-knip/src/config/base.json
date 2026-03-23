@@ -10,14 +10,19 @@
     "apps/web": {
       "entry": ["src/routes/**/*.tsx"],
       "project": ["src/**/*.{ts,tsx}"],
-      "ignore": ["src/components/ui/**", "src/lib/**", "src/context.ts"],
+      "ignore": [
+        "src/components/ui/**",
+        "src/lib/**",
+        "src/context.ts",
+        "src/types/**"
+      ],
       "ignoreDependencies": [
         "happy-dom",
         "@supabase/ssr",
         "@supabase/supabase-js",
         "zod"
       ],
-      "ignoreUnresolved": ["\\./\\+types/"]
+      "ignoreUnresolved": []
     },
     "apps/storybook": {
       "entry": [".storybook/**/*.{ts,tsx}"]
