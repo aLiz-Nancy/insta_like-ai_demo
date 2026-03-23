@@ -4,9 +4,9 @@ create table public.users (
   username text unique not null
     check (char_length(username) between 3 and 30)
     check (username ~ '^[a-z0-9_]+$'),
-  display_name text,
-  avatar_url text check (avatar_url is null or avatar_url ~ '^https?://'),
-  bio text,
+  display_name text check (display_name is null or char_length(display_name) <= 50),
+  avatar_url text check (avatar_url is null or avatar_url ~ '^https://'),
+  bio text check (bio is null or char_length(bio) <= 500),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

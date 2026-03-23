@@ -22,6 +22,7 @@ returns table (
 language plpgsql
 stable
 security invoker
+set search_path = ''
 as $$
 declare
   v_user_id uuid := auth.uid();

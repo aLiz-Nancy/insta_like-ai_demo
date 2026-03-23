@@ -129,12 +129,7 @@ export interface Database {
           user_id: string;
           created_at?: string;
         };
-        Update: {
-          id?: string;
-          post_id?: string;
-          user_id?: string;
-          created_at?: string;
-        };
+        Update: Record<string, never>;
         Relationships: [
           {
             foreignKeyName: "likes_post_id_fkey";
