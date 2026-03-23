@@ -20,7 +20,9 @@ export default function Home() {
       justifyContent="center"
     >
       <VStack gap="6" p="6">
-        <Heading size="2xl">{message}</Heading>
+        <Heading as="h1" size="2xl">
+          {message}
+        </Heading>
         <Text color="fg.muted">Chakra UI v3 is working correctly.</Text>
         <Button colorPalette="blue" size="lg">
           Get Started

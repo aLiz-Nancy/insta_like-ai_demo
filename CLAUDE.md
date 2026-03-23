@@ -82,7 +82,7 @@ packages/
     sandbox/          — Sandbox slice for verifying dev tooling (@repo/shared-sandbox)
 ```
 
-- **Node 24.14.0 / pnpm 10.32.1 / TypeScript 5.9.3**
+- **Node 24.13.0 / pnpm 10.32.1 / TypeScript 5.9.3**
 - **React 19.2.4 / React Router 7.13.1 / Vite 8**
 - **Biome 2.4** for lint + format + import sorting (replaces ESLint + Prettier)
 - **Commitlint** with Conventional Commits (`@commitlint/config-conventional`)
