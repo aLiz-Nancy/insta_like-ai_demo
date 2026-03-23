@@ -1,4 +1,8 @@
-import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import {
+  createServerClient,
+  parseCookieHeader,
+  serializeCookieHeader,
+} from "@supabase/ssr";
 
 export function createSupabaseServerClient(request: Request) {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -22,28 +26,14 @@ export function createSupabaseServerClient(request: Request) {
       },
       setAll(cookiesToSet) {
         for (const { name, value, options } of cookiesToSet) {
-          headers.append("Set-Cookie", serializeCookie(name, value, options));
+          headers.append(
+            "Set-Cookie",
+            serializeCookieHeader(name, value, options),
+          );
         }
       },
     },
   });
 
   return { supabase, headers };
-}
-
-function serializeCookie(
-  name: string,
-  value: string,
-  options?: Record<string, unknown>,
-): string {
-  let cookie = `${name}=${encodeURIComponent(value)}`;
-  if (options) {
-    if (options.path) cookie += `; Path=${options.path}`;
-    if (options.maxAge) cookie += `; Max-Age=${options.maxAge}`;
-    if (options.domain) cookie += `; Domain=${options.domain}`;
-  }
-  cookie += options?.httpOnly !== false ? "; HttpOnly" : "";
-  cookie += options?.secure !== false ? "; Secure" : "";
-  cookie += `; SameSite=${options?.sameSite ?? "Lax"}`;
-  return cookie;
 }
