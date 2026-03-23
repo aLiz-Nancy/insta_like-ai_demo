@@ -18,7 +18,7 @@ const ClientStyleContext = createContext<ClientStyleContextData>({
   reset: () => {},
 });
 
-export const useClientStyleContext = () => useContext(ClientStyleContext);
+const useClientStyleContext = () => useContext(ClientStyleContext);
 
 export function ClientCacheProvider({
   children,

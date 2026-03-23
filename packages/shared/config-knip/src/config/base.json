@@ -10,7 +10,13 @@
     "apps/web": {
       "entry": ["src/routes/**/*.tsx"],
       "project": ["src/**/*.{ts,tsx}"],
-      "ignoreDependencies": ["happy-dom"],
+      "ignore": ["src/components/ui/**", "src/lib/**", "src/context.ts"],
+      "ignoreDependencies": [
+        "happy-dom",
+        "@supabase/ssr",
+        "@supabase/supabase-js",
+        "zod"
+      ],
       "ignoreUnresolved": ["\\./\\+types/"]
     },
     "apps/storybook": {
