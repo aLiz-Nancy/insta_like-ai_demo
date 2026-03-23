@@ -1,3 +1,4 @@
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Home, { meta } from "./home";
@@ -32,7 +33,11 @@ describe("meta", () => {
 
 describe("Home", () => {
   it("renders greeting message and SandboxCard", () => {
-    render(<Home />);
+    render(
+      <ChakraProvider value={defaultSystem}>
+        <Home />
+      </ChakraProvider>,
+    );
     expect(screen.getByText("Hello, Portal!")).toBeDefined();
     expect(screen.getByTestId("sandbox-card")).toBeDefined();
   });
