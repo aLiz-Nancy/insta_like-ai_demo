@@ -1,159 +1,130 @@
-# Turborepo starter
+# My Portal
 
-This Turborepo starter is maintained by the Turborepo core team.
+Turborepo + pnpm ワークスペースによるモノレポプロジェクト。Feature-Sliced Design (FSD) アーキテクチャを採用。
 
-## Using this example
+## Tech Stack
 
-Run the following command:
+| カテゴリ | 技術 |
+| --- | --- |
+| Runtime | Node 24.13.0 / pnpm 10.32.1 / TypeScript 5.9.3 |
+| Frontend | React 19 / React Router v7 (Framework Mode) / Vite 8 |
+| UI | Chakra UI v3 |
+| Backend | Supabase (Auth / Database) |
+| Lint & Format | Biome 2.4 |
+| Test | Vitest 4 / Playwright 1.58 |
+| UI Catalog | Storybook 10 |
+| Docs | TypeDoc |
+| Build | Turborepo |
+| Git Hooks | Lefthook (pre-commit: biome, commit-msg: commitlint, pre-push: test) |
 
-```sh
-npx create-turbo@latest
+## Project Structure
+
+```text
+apps/
+  web/                — React Router v7 + Vite (port 3000)
+  storybook/          — Storybook UI catalog (port 6006)
+  playwright/         — Playwright E2E tests
+  typedoc/            — TypeDoc API documentation
+  vitest/             — Vitest test report aggregation
+packages/
+  pages/              — FSD pages layer
+  widgets/            — FSD widgets layer
+  features/           — FSD features layer
+  entities/           — FSD entities layer
+  shared/
+    config-biome/     — Biome configuration (@repo/shared-config-biome)
+    config-commitlint/ — Commitlint configuration (@repo/shared-config-commitlint)
+    config-knip/      — Knip configuration (@repo/shared-config-knip)
+    config-playwright/ — Playwright configuration (@repo/shared-config-playwright)
+    config-storybook/ — Storybook configuration (@repo/shared-config-storybook)
+    config-syncpack/  — Syncpack configuration (@repo/shared-config-syncpack)
+    config-typescript/ — TypeScript configuration (@repo/shared-config-typescript)
+    config-typedoc/   — TypeDoc configuration (@repo/shared-config-typedoc)
+    config-vitest/    — Vitest configuration (@repo/shared-config-vitest)
+    sandbox/          — Dev tooling verification (@repo/shared-sandbox)
 ```
 
-## What's inside?
+## Getting Started
 
-This Turborepo includes the following packages/apps:
+### Prerequisites
 
-### Apps and Packages
+- Node.js 24.13.0
+- pnpm 10.32.1
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Setup
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+```sh
+make setup
+```
 
-### Utilities
+`make setup` は以下を実行します:
 
-This Turborepo has some additional tools already setup for you:
+1. `.env.example` から `.env` を生成
+2. Volta のインストール (Node バージョン管理)
+3. `pnpm install`
+4. Playwright ブラウザのインストール
+5. Lefthook (Git hooks) のインストール
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Development
+
+```sh
+pnpm dev              # web アプリ起動 (port 3000)
+pnpm storybook        # Storybook 起動 (port 6006)
+```
+
+## Commands
+
+すべてのコマンドはリポジトリルートから実行してください。**pnpm のみ使用** (npm/yarn 不可)。
 
 ### Build
 
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
 ```sh
-cd my-turborepo
-turbo build
+pnpm build                    # 全パッケージビルド
+pnpm build --filter=web       # 単一アプリビルド
 ```
 
-Without global `turbo`, use your package manager:
+### Lint & Format
 
 ```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+pnpm lint                     # Biome チェック
+pnpm lint:fix                 # Biome 自動修正
+pnpm format                   # フォーマットチェック
+pnpm format:fix               # フォーマット自動修正
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### Type Check
 
 ```sh
-turbo build --filter=docs
+pnpm check-types              # TypeScript 型チェック
 ```
 
-Without global `turbo`:
+### Test
 
 ```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+pnpm test                     # ユニット / 統合テスト
+pnpm test:coverage            # カバレッジレポート付きテスト
+pnpm vitest                   # テスト + HTML レポート生成 & 表示
+pnpm test:e2e                 # Playwright E2E テスト
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Documentation
 
 ```sh
-cd my-turborepo
-turbo dev
+pnpm typedoc                  # API ドキュメント生成
 ```
 
-Without global `turbo`, use your package manager:
+### Dependency Management
 
 ```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+pnpm package:lint             # 依存バージョン整合性チェック
+pnpm package:fix              # 依存バージョン不整合の修正
+pnpm package:format           # package.json フォーマットチェック
+pnpm package:format:fix       # package.json フォーマット修正
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### Unused Code Detection
 
 ```sh
-turbo dev --filter=web
+pnpm knip                     # 未使用コード / 依存 / export 検出
+pnpm knip:fix                 # 未使用 export 自動修正
 ```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
