@@ -1,4 +1,4 @@
-# My Portal
+# インスタライクのデモ
 
 Turborepo + pnpm ワークスペースによるモノレポプロジェクト。Feature-Sliced Design (FSD) アーキテクチャを採用。
 
